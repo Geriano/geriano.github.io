@@ -2,6 +2,7 @@
 import * as Vue from 'vue'
 
 const page = Vue.ref(window.location.hash.substring(1) || 'home')
+const open = Vue.ref(false)
 const skills = Vue.ref([
   'html css js',
   'sass',
@@ -29,6 +30,14 @@ const skills = Vue.ref([
   'linux',
 ])
 
+const cert = Vue.ref(new String)
+const certificates = Vue.ref([
+  'basic',
+  'line',
+  'vue',
+  'laravel',
+])
+
 const resize = () => {
   const content = document.querySelector('.min-h-content')
   const topbar = document.querySelector('.topbar')
@@ -42,7 +51,7 @@ Vue.onMounted(() => window.addEventListener('resize', resize))
 
 <style scoped>
 .fade-enter-active, .fade-leave-active {
-  transition: all 500ms linear;
+  transition: all 300ms linear;
 }
 
 .fade-enter-from, .fade-leave-to {
@@ -127,7 +136,33 @@ Vue.onMounted(() => window.addEventListener('resize', resize))
             </div>
           </div>
         </template>
+
+        <template v-else-if="page === 'certificate'">
+          <div class="grid grid-cols-2 gap-4 p-4 w-full">
+            <div v-for="(certificate, i) in certificates" :key="i" class="bg-white border rounded-md shadow flex items-center justify-center">
+              <img @click.prevent="cert = certificate; open = true" :src="`assets/images/certificate/${certificate}.png`" :alt="certificate" class="w-full h-60 object-cover object-top rounded-md cursor-pointer">
+            </div>
+          </div>
+        </template>
       <!-- </transition-group> -->
     </div>
   </div>
+
+  <transition name="fade">
+    <div v-if="open" class="fixed top-0 left-0 w-full min-h-screen flex flex-col items-center justify-center z-10">
+      <div class="w-full max-w-5xl h-[22rem] border border-slate-300 rounded-md shadow-md overflow-y-auto bg-white">
+        <div class="flex-none w-full py-1 flex items-center justify-end space-x-2 px-4 rounded-t-md bg-slate-300 sticky top-0 left-0">
+          <div @click.prevent="open = false; cert = new String" class="rounded-full bg-red-500 p-2 cursor-pointer"></div>
+        </div>
+
+        <div class="flex flex-col space-y-4 px-4 py-2">
+          <template v-if="cert">
+            <img :src="`assets/images/certificate/${cert}.png`" :alt="cert" class="w-full h-full rounded-md">
+          </template>
+        </div>
+      </div>
+    </div>
+  </transition>
+
+  <div v-if="open" class="fixed top-0 left-0 bg-slate-700 w-full h-screen z-0 opacity-40"></div>
 </template>

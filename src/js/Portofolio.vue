@@ -1,7 +1,34 @@
 <script setup>
 import * as Vue from 'vue'
 
-const page = Vue.ref('home')
+const page = Vue.ref(window.location.hash.substring(1) || 'home')
+const skills = Vue.ref([
+  'html css js',
+  'sass',
+  'bootstrap',
+  'tailwind',
+  'jquery',
+  'vue',
+  'react',
+  'alpinejs',
+  'typescript',
+  'websocket',
+  'apache',
+  'php',
+  'codeigniter',
+  'laravel',
+  'lumen',
+  'inertia',
+  'python',
+  'flask',
+  'mysql',
+  'mariadb',
+  'sqlite',
+  'git',
+  'windows',
+  'linux',
+])
+
 const resize = () => {
   const content = document.querySelector('.min-h-content')
   const topbar = document.querySelector('.topbar')
@@ -15,7 +42,7 @@ Vue.onMounted(() => window.addEventListener('resize', resize))
 
 <style scoped>
 .fade-enter-active, .fade-leave-active {
-  transition: all 500ms ease;
+  transition: all 500ms linear;
 }
 
 .fade-enter-from, .fade-leave-to {
@@ -45,7 +72,7 @@ Vue.onMounted(() => window.addEventListener('resize', resize))
     </div>
 
     <div class="flex flex-col items-center justify-center space-y-4 w-full h-full min-h-content">
-      <transition-group name="fade">
+      <!-- <transition-group name="fade"> -->
         <template v-if="page === 'home'">
           <div class="flex items-center justify-center space-x-4 w-full">
             <div class="flex flex-col items-center max-w-sm">
@@ -92,7 +119,15 @@ Vue.onMounted(() => window.addEventListener('resize', resize))
             </div>
           </div>
         </template>
-      </transition-group>
+
+        <template v-else-if="page === 'skill'">
+          <div class="grid grid-cols-4 gap-4 p-4">
+            <div v-for="(skill, i) in skills" :key="i" class="bg-white border rounded-md shadow flex items-center justify-center">
+              <img :src="`assets/images/logo/${skill}.png`" :alt="skill" class="object-cover object-center" >
+            </div>
+          </div>
+        </template>
+      <!-- </transition-group> -->
     </div>
   </div>
 </template>

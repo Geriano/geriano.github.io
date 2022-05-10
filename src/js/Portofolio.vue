@@ -165,7 +165,7 @@ Vue.onMounted(() => window.addEventListener('resize', resize))
         </template>
 
         <template v-else-if="page === 'skill'">
-          <div class="grid grid-cols-4 gap-4 p-4">
+          <div class="grid sm:grid-cols-4 gap-4 p-4">
             <div v-for="(skill, i) in skills" :key="i" class="bg-white border rounded-md shadow flex items-center justify-center">
               <img :src="`assets/images/logo/${skill}.png`" :alt="skill" class="object-cover object-center" >
             </div>
@@ -173,7 +173,7 @@ Vue.onMounted(() => window.addEventListener('resize', resize))
         </template>
 
         <template v-else-if="page === 'certificate'">
-          <div class="grid grid-cols-2 gap-4 p-4 w-full">
+          <div class="grid sm:grid-cols-2 gap-4 p-4 w-full">
             <div v-for="(certificate, i) in certificates" :key="i" class="bg-white border rounded-md shadow flex items-center justify-center">
               <img @click.prevent="cert = certificate; open = true" :src="`assets/images/certificate/${certificate}.png`" :alt="certificate" class="w-full h-60 object-cover object-top rounded-md cursor-pointer">
             </div>
@@ -183,7 +183,7 @@ Vue.onMounted(() => window.addEventListener('resize', resize))
         <template v-else-if="page === 'project'">
           <div class="flex flex-col space-y-4 p-4">
             <template v-for="(p, i) in projects" :key="i">
-              <div class="flex space-x-4 bg-white rounded-md shadow p-4">
+              <div class="flex flex-col-reverse sm:flex-row sm:space-x-4 bg-white rounded-md shadow p-4">
                 <div class="w-full">
                   <a :href="p.link" class="text-3xl font-bold uppercase">{{ p.name }}</a>
                   <p class="lowercase first-letter:capitalize">{{ p.description }}</p>
@@ -195,7 +195,7 @@ Vue.onMounted(() => window.addEventListener('resize', resize))
                   </div>
                 </div>
 
-                <div class="flex-none w-1/4">
+                <div class="flex-none w-full sm:w-1/4">
                   <img :src="`assets/images/project/${p.name}.png`" :alt="p.name" class="w-full h-30 rounded-md">
                 </div>
               </div>
@@ -208,7 +208,7 @@ Vue.onMounted(() => window.addEventListener('resize', resize))
 
   <transition name="fade">
     <div v-if="open" class="fixed top-0 left-0 w-full min-h-screen flex flex-col items-center justify-center z-10">
-      <div class="w-full max-w-5xl h-[22rem] border border-slate-300 rounded-md shadow-md overflow-y-auto bg-white">
+      <div class="w-full max-w-md sm:max-w-5xl h-96 sm:h-[22rem] border border-slate-300 rounded-md shadow-md overflow-y-auto bg-white">
         <div class="flex-none w-full py-1 flex items-center justify-end space-x-2 px-4 rounded-t-md bg-slate-300 sticky top-0 left-0">
           <div @click.prevent="open = false; cert = new String; project = new String" class="rounded-full bg-red-500 p-2 cursor-pointer"></div>
         </div>

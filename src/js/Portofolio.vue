@@ -1,6 +1,7 @@
 <script setup>
 import * as Vue from 'vue'
 
+const topbar = Vue.ref(window.innerWidth > 669)
 const page = Vue.ref(window.location.hash.substring(1) || 'home')
 const open = Vue.ref(false)
 const skills = Vue.ref([
@@ -38,7 +39,6 @@ const certificates = Vue.ref([
   'laravel',
 ])
 
-const project = Vue.ref({})
 const projects = Vue.ref([
   {
     name: 'logbook',
@@ -93,22 +93,32 @@ Vue.onMounted(() => window.addEventListener('resize', resize))
         <div class="rounded-full bg-green-500 p-2 cursor-pointer"></div>
       </div>
 
-      <div class="flex items-center space-x-2 px-4 bg-slate-200">
-        <div class="flex-none font-bold text-2xl capitalize">Geriano</div>
+      <div class="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-2 px-4 bg-slate-200">
+        <div class="flex-none font-bold text-2xl capitalize flex sm:block justify-between">
+          <h1>Geriano</h1>
 
-        <div class="flex items-center justify-end w-full font-semibold">
-          <a @click="page = 'home'" href="#home" class="border-b-4 border-solid border-transparent px-4 py-2 uppercase hover:bg-slate-100" :class="page === 'home' && 'rounded-t-sm bg-slate-100 border-slate-300'">home</a>
-          <a @click="page = 'skill'" href="#skill" class="border-b-4 border-solid border-transparent px-4 py-2 uppercase hover:bg-slate-100" :class="page === 'skill' && 'rounded-t-sm bg-slate-100 border-slate-300'">skill</a>
-          <a @click="page = 'certificate'" href="#certificate" class="border-b-4 border-solid border-transparent px-4 py-2 uppercase hover:bg-slate-100" :class="page === 'certificate' && 'rounded-t-sm bg-slate-100 border-slate-300'">certificate</a>
-          <a @click="page = 'project'" href="#project" class="border-b-4 border-solid border-transparent px-4 py-2 uppercase hover:bg-slate-100" :class="page === 'project' && 'rounded-t-sm bg-slate-100 border-slate-300'">project</a>
+          <button @click.prevent="topbar = ! topbar" class="sm:hidden border border-slate-700 rounded-md shadow w-8 h-8 m-1 p-1 text-slate-700">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="fill-current w-full h-full">
+              <path d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"/>
+            </svg>
+          </button>
         </div>
+
+        <transition name="fade">
+          <div v-if="topbar" class="sm:flex flex-col sm:flex-row sm:items-center sm:justify-end w-full font-semibold" :class="topbar ? 'flex' : 'hidden'">
+            <a @click="page = 'home'" href="#home" class="border-b-4 border-solid border-transparent px-4 py-2 uppercase hover:bg-slate-100" :class="page === 'home' && 'rounded-t-sm bg-slate-100 border-slate-300'">home</a>
+            <a @click="page = 'skill'" href="#skill" class="border-b-4 border-solid border-transparent px-4 py-2 uppercase hover:bg-slate-100" :class="page === 'skill' && 'rounded-t-sm bg-slate-100 border-slate-300'">skill</a>
+            <a @click="page = 'certificate'" href="#certificate" class="border-b-4 border-solid border-transparent px-4 py-2 uppercase hover:bg-slate-100" :class="page === 'certificate' && 'rounded-t-sm bg-slate-100 border-slate-300'">certificate</a>
+            <a @click="page = 'project'" href="#project" class="border-b-4 border-solid border-transparent px-4 py-2 uppercase hover:bg-slate-100" :class="page === 'project' && 'rounded-t-sm bg-slate-100 border-slate-300'">project</a>
+          </div>
+        </transition>
       </div>
     </div>
 
     <div class="flex flex-col items-center justify-center space-y-4 w-full h-full min-h-content">
       <!-- <transition-group name="fade"> -->
         <template v-if="page === 'home'">
-          <div class="flex items-center justify-center space-x-4 w-full">
+          <div class="flex flex-col sm:flex-row items-center justify-center space-x-4 w-full">
             <div class="flex flex-col items-center max-w-sm">
               <h1 class="text-5xl font-bold">Hello there! my name is Geriano</h1>
               <p class="text-3xl font-semibold">I'm a fullstack web developer</p>

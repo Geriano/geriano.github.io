@@ -118,13 +118,13 @@ Vue.onMounted(() => window.addEventListener('resize', resize))
     <div class="flex flex-col items-center justify-center space-y-4 w-full h-full min-h-content">
       <!-- <transition-group name="fade"> -->
         <template v-if="page === 'home'">
-          <div class="flex flex-col sm:flex-row items-center justify-center space-x-4 w-full">
+          <div class="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4 w-full">
             <div class="flex flex-col items-center max-w-sm">
               <h1 class="text-5xl font-bold">Hello there! my name is Geriano</h1>
               <p class="text-3xl font-semibold">I'm a fullstack web developer</p>
             </div>
 
-            <div class="flex flex-col bg-white border rounded-md shadow w-full max-w-xl">
+            <div class="flex flex-col bg-white border rounded-md shadow w-full max-w-md sm:max-w-xl">
               <div class="flex-none w-full h-full flex items-center space-x-2 justify-end px-4 py-1 bg-slate-200 rounded-t-md">
                 <div class="rounded-full bg-green-500 p-2 cursor-pointer"></div>
                 <div class="rounded-full bg-yellow-500 p-2 cursor-pointer"></div>

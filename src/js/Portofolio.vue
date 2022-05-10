@@ -38,6 +38,31 @@ const certificates = Vue.ref([
   'laravel',
 ])
 
+const project = Vue.ref({})
+const projects = Vue.ref([
+  {
+    name: 'logbook',
+    description: 'A web application for logging organization daily activities and order progress.',
+    backend: ['CodeIgniter 4'],
+    frontend: ['jquery', 'bootstrap'],
+    link: 'https://logbook.ekfpb.com',
+  },
+  {
+    name: 'batch record',
+    description: 'A web application for recording batch production records. from create document procedure, order progress to delivery.',
+    backend: ['CodeIgniter 4', 'Laravel'],
+    frontend: ['jquery', 'vue', 'bootstrap', 'tailwind'],
+    link: '#',
+  },
+  {
+    name: 'template',
+    description: 'Starter template for developing an application.',
+    backend: ['Laravel'],
+    frontend: ['vue', 'tailwind', 'inertia'],
+    link: 'http://laravel-inertia-vue.herokuapp.com',
+  },
+])
+
 const resize = () => {
   const content = document.querySelector('.min-h-content')
   const topbar = document.querySelector('.topbar')
@@ -144,6 +169,29 @@ Vue.onMounted(() => window.addEventListener('resize', resize))
             </div>
           </div>
         </template>
+
+        <template v-else-if="page === 'project'">
+          <div class="flex flex-col space-y-4 p-4">
+            <template v-for="(p, i) in projects" :key="i">
+              <div class="flex space-x-4 bg-white rounded-md shadow p-4">
+                <div class="w-full">
+                  <a :href="p.link" class="text-3xl font-bold uppercase">{{ p.name }}</a>
+                  <p class="lowercase first-letter:capitalize">{{ p.description }}</p>
+
+                  <div class="flex-wrap">
+                    <button v-for="(f, j) in [...p.frontend, ...p.backend]" :key="j" class="bg-slate-700 hover:bg-slate-800 text-white rounded shadow px-3 py-1 text-sm uppercase font-semibold m-1">
+                      {{ f }}
+                    </button>
+                  </div>
+                </div>
+
+                <div class="flex-none w-1/4">
+                  <img :src="`assets/images/project/${p.name}.png`" :alt="p.name" class="w-full h-30 rounded-md">
+                </div>
+              </div>
+            </template>
+          </div>
+        </template>
       <!-- </transition-group> -->
     </div>
   </div>
@@ -152,7 +200,7 @@ Vue.onMounted(() => window.addEventListener('resize', resize))
     <div v-if="open" class="fixed top-0 left-0 w-full min-h-screen flex flex-col items-center justify-center z-10">
       <div class="w-full max-w-5xl h-[22rem] border border-slate-300 rounded-md shadow-md overflow-y-auto bg-white">
         <div class="flex-none w-full py-1 flex items-center justify-end space-x-2 px-4 rounded-t-md bg-slate-300 sticky top-0 left-0">
-          <div @click.prevent="open = false; cert = new String" class="rounded-full bg-red-500 p-2 cursor-pointer"></div>
+          <div @click.prevent="open = false; cert = new String; project = new String" class="rounded-full bg-red-500 p-2 cursor-pointer"></div>
         </div>
 
         <div class="flex flex-col space-y-4 px-4 py-2">

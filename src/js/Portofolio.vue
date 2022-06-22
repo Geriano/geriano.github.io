@@ -29,6 +29,8 @@ const skills = Vue.ref([
   'git',
   'windows',
   'linux',
+  'dart',
+  'flutter',
 ])
 
 const cert = Vue.ref(new String)
@@ -37,6 +39,7 @@ const certificates = Vue.ref([
   'line',
   'vue',
   'laravel',
+  'dart',
 ])
 
 const projects = Vue.ref([
